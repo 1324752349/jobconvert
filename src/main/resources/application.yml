@@ -1,0 +1,39 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /jodconverter
+
+jodconverter:
+  local:
+    enabled: true
+    office-home: C:\Program Files (x86)\OpenOffice 4
+    max-tasks-per-process: 100
+
+webconfig:
+  pathPatterns: /tmp/
+  resourceLocations: C:/tmp/
+
+quartz:
+  #每天凌晨删除
+  #cron: 0 0 0 */1 * ?
+  cron: 0/20 * * * * ?
+  redisKeyPre: FileMD5
+  redisValuePre: FileURL
+  threadPoolSize: 5
+
+
+spring:
+ redis:
+   host: 192.168.75.143
+   port: 6379
+   timeout: 1000
+   pool:
+     minIdle: 1
+     maxIdle: 10
+     maxWait: 3
+     maxActive: 8
+ servlet:
+   multipart:
+    max-file-size: 100MB
+    max-request-size: 1000MB
+
