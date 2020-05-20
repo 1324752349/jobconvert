@@ -27,11 +27,12 @@ spring:
    host: 127.0.0.1
    port: 6379
    timeout: 1000
-   pool:
-     minIdle: 1
-     maxIdle: 10
-     maxWait: 3
-     maxActive: 8
+   jedis:
+     pool:
+       min-idle: 1
+       max-idle: 10
+       max-wait:
+       max-active: 8
  servlet:
    multipart:
     max-file-size: 100MB
