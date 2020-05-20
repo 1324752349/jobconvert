@@ -6,12 +6,12 @@ server:
 jodconverter:
   local:
     enabled: true
-    office-home: C:\Program Files (x86)\OpenOffice 4
+    office-home: /Users/maxray/Downloads/OpenOffice.app/Contents
     max-tasks-per-process: 100
 
 webconfig:
   pathPatterns: /tmp/
-  resourceLocations: C:/tmp/
+  resourceLocations: /Users/maxray/Downloads/tmp
 
 quartz:
   #每天凌晨删除
@@ -24,7 +24,7 @@ quartz:
 
 spring:
  redis:
-   host: 192.168.75.143
+   host: 127.0.0.1
    port: 6379
    timeout: 1000
    pool:

@@ -4,7 +4,6 @@ import com.hc.jodconverter.config.QuartzConfig;
 import com.hc.jodconverter.config.WebConfig;
 import com.hc.jodconverter.service.util.FileUtil;
 import com.hc.jodconverter.service.util.RedisUtil;
-import com.sun.org.apache.regexp.internal.RE;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -35,6 +34,7 @@ public class QuartzJobFactory implements Job {
         webConfigProperties=this.webConfig;
     }
 
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         //创建锁对象，保证删除目录和删除缓存具有一致性
         Lock lock =new ReentrantLock();

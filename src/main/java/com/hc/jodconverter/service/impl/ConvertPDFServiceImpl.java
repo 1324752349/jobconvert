@@ -7,8 +7,6 @@ import com.hc.jodconverter.service.util.FileUtil;
 import com.hc.jodconverter.service.util.RedisUtil;
 
 import com.hc.jodconverter.service.util.TxtToPDFUtil;
-import com.sun.corba.se.impl.orbutil.concurrent.Sync;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang3.StringUtils;
 import org.jodconverter.DocumentConverter;
 import org.jodconverter.document.DefaultDocumentFormatRegistry;
@@ -81,7 +79,7 @@ public class ConvertPDFServiceImpl implements ConvertPDFService {
                 TxtToPDFUtil.txtTopdf(multipartFile, outputFile);
             } else {
                 //转换成PDF格式并输出到指定路径，超时时间为10s
-                timeLimitToDPF(multipartFile.getInputStream(), outputFile, 10);
+                timeLimitToDPF(multipartFile.getInputStream(), outputFile, 40);
             }
         } catch (IOException e) {
             redisUtil.delete(redisKey);
@@ -119,7 +117,6 @@ public class ConvertPDFServiceImpl implements ConvertPDFService {
             //获取http连接
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout((int) (5 * Sync.ONE_SECOND));
             conn.setDoOutput(true);
             conn.setUseCaches(false);
             InputStream inputStream = conn.getInputStream();
@@ -145,7 +142,6 @@ public class ConvertPDFServiceImpl implements ConvertPDFService {
             //对文件进行格式转换操作
             //如果文件本身是pdf
             if (lastName.equalsIgnoreCase(".pdf")) {
-                conn.setConnectTimeout((int) (5 * Sync.ONE_SECOND));
                 return urlStr.substring(urlStr.lastIndexOf("/") + 1);
             } else if (lastName.equalsIgnoreCase(".txt")) {
                 String tempPath = webConfig.getResourceLocations() + UUID.randomUUID() + ".txt";
@@ -178,7 +174,7 @@ public class ConvertPDFServiceImpl implements ConvertPDFService {
         result.append(":");
         result.append(request.getServerPort());
         result.append(request.getContextPath());
-        result.append(webConfig.getPathPatterns());
+        result.append("/tmp//");
         return result.toString();
     }
 
@@ -196,7 +192,7 @@ public class ConvertPDFServiceImpl implements ConvertPDFService {
 
     public String getRealPath(String pdfName) {
         StringBuffer realPath = new StringBuffer();
-        realPath.append(webConfig.getResourceLocations());
+        realPath.append("/Users/maxray/Downloads/tmp/");
         realPath.append(pdfName);
         return realPath.toString();
     }

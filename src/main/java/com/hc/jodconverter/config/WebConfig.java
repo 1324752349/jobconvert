@@ -1,6 +1,5 @@
 package com.hc.jodconverter.config;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,12 +26,9 @@ public class WebConfig extends WebMvcConfigurationSupport {
                 .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        if(StringUtils.isBlank(pathPatterns) || StringUtils.isBlank(resourceLocations)){
-            pathPatterns = "/file/**";
-            resourceLocations = "file:D:/upload/";
-        }
-        registry.addResourceHandler(pathPatterns+"**")
-                .addResourceLocations("file:"+resourceLocations);
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/tmp/**")
+                .addResourceLocations("file:/Users/maxray/Downloads/tmp/");
     }
 
     @Bean
